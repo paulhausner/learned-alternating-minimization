@@ -1,8 +1,8 @@
 # Learning inexact alternating minimization for convex problems with quadratic coupling
 
-This is the official repository for the NeurIPS paper _Learning inexact alternating minimization for convex problems with quadratic coupling_ by Paul Häusner, Jevgenija Rudzusika, Jens Sjölund, and Ozan Öktem.
+This is the official repository for the NeurIPS paper _Learning inexact alternating minimization for convex problems with quadratic coupling_ by [Paul Häusner](https://paulhausner.github.io/), [Jevgenija Rudzusika](https://scholar.google.com/citations?user=wdQrheMAAAAJ&hl=en&), [Jens Sjölund](https://jsjol.github.io/), and [Ozan Öktem](https://www.kth.se/profile/ozan).
 
-We replace the inexact subproblem solves of alternating minimization with one learned update per outer iteration. The networks are trained greedily, one iteration at a time, on the objective of the corresponding subproblem.
+TLDR: We replace the inexact subproblem solves of alternating minimization with one learned update per outer iteration. The networks are trained greedily, one iteration at a time, on the objective of the corresponding subproblem.
 
 ## Repository layout
 
@@ -101,3 +101,8 @@ The reference solution of each test slice is computed once and cached in `.cache
   year      = {2026}
 }
 ```
+
+## Contact
+
+If you have questions or comments feel free to reach out paul.hausner@it.uu.se
+
