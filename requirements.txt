@@ -1,0 +1,6 @@
+torch>=2.0
+numpy
+tqdm
+# CT experiments only (astra-toolbox with CUDA is easiest to install via conda)
+odl
+astra-toolbox

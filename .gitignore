@@ -1,0 +1,8 @@
+__pycache__/
+.cache/
+results/
+test_results/
+data/
+*.pt
+*.npy
+!ct/dics/dic_128.npy
