@@ -122,7 +122,7 @@ def main(args):
     scheduler = make_scheduler(optimizer, args.lr_scheduler, args.epochs)
     stopper = EarlyStopping(args.val_patience, args.min_delta)
     n_batches = (store.N + args.batch_size - 1) // args.batch_size
-    eval_every = max(1, n_batches // args.vals_per_epoch)
+    eval_every = max(1, n_batches // args.vals_per_epoch) if args.vals_per_epoch > 0 else None
 
     step = 0
     for epoch in range(args.epochs):
@@ -145,7 +145,7 @@ def main(args):
             if step % 50 == 0:
                 train_csv.write([epoch, step, loss.item()])
 
-            if step % eval_every == 0:
+            if eval_every is not None and step % eval_every == 0:
                 val_obj, val_psnr = validate(model, forward, val_image, val_data)
                 val_csv.write([epoch, step, val_obj, val_psnr])
                 log.info(f"  [val step {step}] obj={val_obj:.5f} PSNR={val_psnr:.2f} dB")
@@ -183,7 +183,8 @@ def argparser():
     p.add_argument("--weight_decay", type=float, default=0.01)
     p.add_argument("--grad_clip", type=float, default=1.0)
     p.add_argument("--lr_scheduler", default="cosine", choices=["cosine", "none"])
-    p.add_argument("--vals_per_epoch", type=int, default=4)
+    p.add_argument("--vals_per_epoch", type=int, default=4,
+                   help="validations per epoch (0 disables validation and early stopping)")
     p.add_argument("--val_patience", type=int, default=5)
     p.add_argument("--min_delta", type=float, default=1e-5)
     p.add_argument("--max_samples", type=int, default=None)

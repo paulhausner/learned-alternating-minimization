@@ -49,7 +49,8 @@ This trains the learned scheme (K = 8) for 5 seeds, computes the reference optim
 
 ### Data
 
-We use the 2016 AAPM Low Dose CT Grand Challenge data ([McCollough et al., 2021](https://doi.org/10.1002/mp.14779)). The license does not allow redistribution; the data can be obtained from [The Cancer Imaging Archive](https://www.cancerimagingarchive.net/collection/ldct-and-projection-data/) after registration.
+We use the 2016 AAPM Low Dose CT Grand Challenge data. The license does not allow redistribution.
+The data can be obtained from [The Cancer Imaging Archive](https://www.cancerimagingarchive.net/collection/ldct-and-projection-data/) after registration.
 
 Store the full-dose image volumes as axial 512 x 512 slices in Hounsfield units, one `.npy` file per slice, named with the patient ID as prefix (e.g. `data/mayo/L067_0001.npy`). Patient L286 is the test patient and every 100th of the remaining slices is used for validation (21 slices), which leaves 2147 training slices. The noisy sinograms (fan beam, 1000 angles, 1000 detector elements, 50 000 photons per pixel) are simulated from these slices. The validation and test sets are simulated once and stored in the data folder as `{val,test}_{image,data}.npy`.
 

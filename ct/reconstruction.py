@@ -229,8 +229,9 @@ class LearnedReconstruction(Reconstruction):
         super().__init__(operator, dict_stride=dict_stride, **kwargs)
         self.clamp_x, self.clamp_z = clamp_x, clamp_z
 
-        Lz_init = float(2 * self.lam1 * self.S.norm_sq(self.D))
+        # same order of random draws as the original code (x-net, ||D||^2, z-net)
         self.net = LearnedUpdatesX(niter=n_iter).cuda()
+        Lz_init = float(2 * self.lam1 * self.S.norm_sq(self.D))
         self.net_z = LearnedUpdatesZ(niter=n_iter, theta_init=self.lam2 / Lz_init,
                                      n_atoms=self.D.shape[0]).cuda()
 
@@ -245,7 +246,7 @@ class LearnedReconstruction(Reconstruction):
         Dz = self.S(z, self.D)
         g1, g2 = self.grad_x(x, y, y_weight, Dz)
         d = self.net(torch.cat([x, g1, g2], dim=1), k).reshape_as(x)
-        return self._project(x - (g1 + g2 + d) / Lx, self.clamp_x)
+        return self._project(x - 1 / Lx * (g1 + g2 + d), self.clamp_x)
 
     def learned_z_step(self, x, z, Lz, k):
         grad_z = self.grad_z(x, self.S(z, self.D))
